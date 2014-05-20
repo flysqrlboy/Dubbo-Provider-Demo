@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+
+	<dubbo:application name="hello-world-app"/>
+	<!-- <dubbo:registry address="multicast://224.5.6.7:1234?unicast=false"/> -->
+	
+	<!-- <dubbo:registry  client="zkclient" protocol="zookeeper" address="192.168.1.12:2181,192.168.1.12:2182" /> -->
+	<!-- <dubbo:registry  client="zkclient" protocol="zookeeper" address="192.168.38.10:2181,192.168.38.10:2182" /> -->
+	<dubbo:registry  client="curator" protocol="zookeeper" address="192.168.38.10:2181,192.168.38.10:2182" />
+	
+	
+	<dubbo:protocol name="dubbo" port="20882"/>
+	<dubbo:service interface="com.flysqrlboy.service.interf.DemoService" ref="demoService"/>
+	<dubbo:service interface="com.flysqrlboy.service.interf.HelloService" ref="helloService"/>
+	<bean id="demoService" class="com.flysqrlboy.service.impl.DemoServiceImpl"></bean>
+	<bean id="helloService" class="com.flysqrlboy.service.impl.HelloServiceImpl"></bean>
+</beans>
